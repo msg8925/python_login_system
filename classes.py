@@ -19,14 +19,3 @@ class DB_context_manager():
         print("__exit__")
         self.conn.commit()
         self.conn.close()
-
-
-class Employee:
-
-    def __init__(self, firstname, lastname, salary):
-        self.firstname = firstname
-        self.lastname = lastname
-        self.salary = salary 
-
-    def __repr__(self):
-        return f"Employee({self.firstname}, {self.lastname}, {self.salary})"  

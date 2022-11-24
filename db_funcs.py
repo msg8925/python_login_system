@@ -10,6 +10,8 @@ def open_db(DB_NAME):
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 FIRSTNAME TEXT,
                 LASTNAME TEXT,
+                USERNAME TEXT,
+                PASSWORD TEXT,
                 SALARY INT
             );
             
@@ -22,16 +24,16 @@ def open_db(DB_NAME):
 def insert_into_db(DB_NAME, employee):
     
     with DB_context_manager(DB_NAME) as c:
-        c.execute("INSERT INTO employee (id, FIRSTNAME, LASTNAME, SALARY) VALUES (:id, :firstname, :lastname, :salary)", {'id': None, 'firstname': employee.firstname, 'lastname': employee.lastname, 'salary': employee.salary})
+        c.execute("INSERT INTO employee (id, FIRSTNAME, LASTNAME, USERNAME, PASSWORD, SALARY) VALUES (:id, :firstname, :lastname, :username, :password, :salary)", {'id': None, 'firstname': employee.firstname, 'lastname': employee.lastname, 'username': employee.username, 'password': employee.password, 'salary': employee.salary})
         
     return 0
 
 
 # Select an employee from DB
-def select_from_db(DB_NAME, lastname):
+def select_from_db(DB_NAME, username):
     
     with DB_context_manager(DB_NAME) as c:
-        c.execute("SELECT * FROM employee WHERE LASTNAME=:lastname", {'lastname': lastname})
-        employees = c.fetchall()
+        c.execute("SELECT * FROM employee WHERE USERNAME=:username", {'username': username})
+        employee = c.fetchone()
 
-    return employees
+    return employee
