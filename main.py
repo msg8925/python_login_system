@@ -6,26 +6,84 @@ DB_NAME="company.db"
 
 open_db(DB_NAME)
 
-passwd = "1234"
-hashed_passwd = bcrypt.hashpw(passwd.encode(), bcrypt.gensalt())
-print(hashed_passwd)
 
-employee = Employee("John", "Smith", "user1", hashed_passwd, 20000)
-insert_into_db(DB_NAME, employee)
+def login():
+    
+    username = input("Please enter your username: ")
+    password = input("Please enter your password: ") 
 
-username = input("Please enter your username: ")
-password = input("Please enter your password: ") 
-#hashed_password = bcrypt.hashpw(password.encode())
-#print(hashed_password)
-# , 
+    user = select_from_db(DB_NAME, username)
+    if user == None:
+        #print(user[4])
+        print("No account with username provided.")
+        return 1
+    
+    else:
+        if bcrypt.checkpw(password.encode(), user[4]):
+            print("Successfully logged in.")
+            return 0
+        
+        else:
+            print("Incorrect login credentials.")
+            return 2
 
-user = select_from_db(DB_NAME, username)
-#print(user[4])
 
-if bcrypt.checkpw(password.encode(), user[4]):
-    print("Successfully logged in.")
+def register():
+
+    firstname = input("Please enter your firstname: ")
+    lastname = input("Please enter your lastname: ")
+    username = input("Please enter your username: ")
+    password_1 = input("Please enter your password: ")
+    password_2 = input("Please enter your password again: ")
+
+    # Check username does not already exist
+    user = select_from_db(DB_NAME, username)
+    # If there is no user with that name
+    if user:
+        print("This username already exists.")
+        return 1
+
+    # Check the passwords match
+    else: 
+        if password_1 != password_2:
+            print("Passwords do not match.")
+            return 2
+
+        else:
+            hashed_password = bcrypt.hashpw(password_1.encode(), bcrypt.gensalt())
+            #print(hashed_password)
+
+            employee = Employee(firstname, lastname, username, hashed_password, 20000)
+            insert_into_db(DB_NAME, employee)
+    
+            return 0
+
+
+# passwd = "abcd"
+# hashed_passwd = bcrypt.hashpw(passwd.encode(), bcrypt.gensalt())
+# print(hashed_passwd)
+
+# employee = Employee("Jane", "Doe", "user2", hashed_passwd, 20000)
+# insert_into_db(DB_NAME, employee)
+
+
+
+
+result = login()
+if result == 1:
+    print("Account does not exist: Create one now: ")
+    register()
 else:
-    print("Incorrect login credentials.")
+    print(f"Result: {result}")
+    
+
+# user = select_from_db(DB_NAME, username)
+# #print(user[4])
+
+# if bcrypt.checkpw(password.encode(), user[4]):
+#     print("Successfully logged in.")
+# else:
+#     print("Incorrect login credentials.")
 
 
 
