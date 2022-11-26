@@ -6,7 +6,7 @@ DB_NAME="company.db"
 
 def login():
     
-    user_id = 1
+    #user_id = 2
     username = input("Please enter your username: ")
     password = input("Please enter your password: ") 
 
@@ -19,15 +19,18 @@ def login():
     else:
         if bcrypt.checkpw(password.encode(), user[4]):
 
+            ###### Need to change the 'user_id'     
+            #employee = Employee(id)
+
             # Check if a session already exists
-            session = select_session_from_db(DB_NAME, user_id)
+            session = select_session_from_db(DB_NAME, user[0])
             if session:
                 print("Employee already logged in.")
                 return 3
             
             else:     
                 # Add user to session
-                insert_session_into_db(DB_NAME, user_id)
+                insert_session_into_db(DB_NAME, user[0])
                 print("Session created for user.")     
 
                 print("Successfully logged in.")
@@ -67,6 +70,10 @@ def register():
             insert_into_db(DB_NAME, employee)
     
             # Need to run a select statement to obtain user's id and then set it in the 'employee' object
+            employee_with_id = select_from_db(DB_NAME, employee.username)
+            employee.set_employee_id(employee_with_id[0])
+
+            print(f"Employee id: {employee.get_employee_id()}")
 
             return 0
 
