@@ -11,4 +11,6 @@ def some_secure_function():
     print("This function will run and shows results after the decorator has run.")
 
 
+# This function will prompt user for login information before running
 some_secure_function()
+

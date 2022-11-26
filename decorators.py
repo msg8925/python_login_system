@@ -23,6 +23,12 @@ def login_required(original_function):
         elif result == 0:
             return original_function()
 
+
+        # if user is already logged in
+        elif result == 3:
+            print("User already logged in.")
+            return 5
+
         # Any other result
         else:
             print(f"Result: {result}")

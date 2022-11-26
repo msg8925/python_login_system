@@ -1,4 +1,4 @@
-from db_funcs import open_db, insert_into_db, select_from_db
+from db_funcs import open_db, insert_into_db, select_from_db, insert_session_into_db, select_session_from_db
 from models import Employee
 import bcrypt
 
@@ -6,6 +6,7 @@ DB_NAME="company.db"
 
 def login():
     
+    user_id = 1
     username = input("Please enter your username: ")
     password = input("Please enter your password: ") 
 
@@ -17,8 +18,20 @@ def login():
     
     else:
         if bcrypt.checkpw(password.encode(), user[4]):
-            print("Successfully logged in.")
-            return 0
+
+            # Check if a session already exists
+            session = select_session_from_db(DB_NAME, user_id)
+            if session:
+                print("Employee already logged in.")
+                return 3
+            
+            else:     
+                # Add user to session
+                insert_session_into_db(DB_NAME, user_id)
+                print("Session created for user.")     
+
+                print("Successfully logged in.")
+                return 0
         
         else:
             print("Incorrect login credentials.")
@@ -50,7 +63,13 @@ def register():
             hashed_password = bcrypt.hashpw(password_1.encode(), bcrypt.gensalt())
             #print(hashed_password)
 
-            employee = Employee(firstname, lastname, username, hashed_password, 20000)
+            employee = Employee(firstname, lastname, username, hashed_password, 20000)     
             insert_into_db(DB_NAME, employee)
     
+            # Need to run a select statement to obtain user's id and then set it in the 'employee' object
+
             return 0
+
+
+def userLoggedIn():
+    pass

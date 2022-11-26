@@ -17,6 +17,16 @@ def open_db(DB_NAME):
             
         """)
 
+        c.execute("""
+
+            CREATE TABLE IF NOT EXISTS session (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                EMPLOYEE_ID INTEGER,
+                FOREIGN KEY (EMPLOYEE_ID) REFERENCES employee (id)            
+            );
+            
+        """)
+
     return 0
 
 
@@ -37,3 +47,22 @@ def select_from_db(DB_NAME, username):
         employee = c.fetchone()
 
     return employee
+
+
+# Select an employee from DB
+def select_session_from_db(DB_NAME, employee_id):
+    
+    with DB_context_manager(DB_NAME) as c:
+        c.execute("SELECT * FROM session WHERE EMPLOYEE_ID=:employee_id", {'employee_id': employee_id})
+        session = c.fetchone()
+
+    return session
+
+
+# Insert employee into DB
+def insert_session_into_db(DB_NAME, employee_id):
+    
+    with DB_context_manager(DB_NAME) as c:
+        c.execute("INSERT INTO session (id, EMPLOYEE_ID) VALUES (:id, :employee_id)", {'id': None, 'employee_id': employee_id})
+        
+    return 0    
