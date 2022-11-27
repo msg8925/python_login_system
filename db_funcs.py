@@ -66,3 +66,12 @@ def insert_session_into_db(DB_NAME, employee_id):
         c.execute("INSERT INTO session (id, EMPLOYEE_ID) VALUES (:id, :employee_id)", {'id': None, 'employee_id': employee_id})
         
     return 0    
+
+
+# Delete a session
+def delete_session_from_db(DB_NAME, employee_id):
+
+    with DB_context_manager(DB_NAME) as c:
+        c.execute("DELETE FROM session WHERE EMPLOYEE_ID=:employee_id", {'id': None, 'employee_id': employee_id})
+
+    return 0   

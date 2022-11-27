@@ -1,6 +1,7 @@
 from db_funcs import open_db, insert_into_db, select_from_db, insert_session_into_db, select_session_from_db
 from models import Employee
 import bcrypt
+from getpass import getpass
 
 DB_NAME="company.db"
 
@@ -8,7 +9,8 @@ def login():
     
     #user_id = 2
     username = input("Please enter your username: ")
-    password = input("Please enter your password: ") 
+    password = getpass("Please enter your password: ")
+    #password = input("Please enter your password: ") 
 
     user = select_from_db(DB_NAME, username)
     if user == None:
@@ -78,5 +80,5 @@ def register():
             return 0
 
 
-def userLoggedIn():
+def logout():
     pass
