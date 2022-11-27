@@ -1,4 +1,4 @@
-from db_funcs import open_db, insert_into_db, select_from_db, insert_session_into_db, select_session_from_db
+from db_funcs import open_db, insert_into_db, select_from_db, insert_session_into_db, select_session_from_db, delete_session_from_db
 from models import Employee
 import bcrypt
 from getpass import getpass
@@ -33,7 +33,11 @@ def login():
             else:     
                 # Add user to session
                 insert_session_into_db(DB_NAME, user[0])
-                print("Session created for user.")     
+                
+                # Set the currently logged in user value - TODO - need to make this a global value
+                current_logged_in_user = user[3]
+                
+                print(f"Session created for user {current_logged_in_user}.")     
 
                 print("Successfully logged in.")
                 return 0
@@ -81,4 +85,7 @@ def register():
 
 
 def logout():
+    
+    # Check the session exists
+    #select_session_from_db(DB_NAME, )
     pass
