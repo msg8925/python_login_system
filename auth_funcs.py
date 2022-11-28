@@ -10,7 +10,7 @@ def set_current_logged_in_employee(employee):
 
 def get_current_logged_in_employee():
 
-    with file_context_manager("auth_var.pkl", "rb") as f:
+    with file_context_manager("auth_vars.pkl", "rb") as f:
         employee = f.read()
         return employee        
 

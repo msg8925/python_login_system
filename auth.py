@@ -100,7 +100,8 @@ def logout():
         print("No user is logged in.")
     else:
         current_logged_in_employee = unpickle_string(employee)      
-        print(current_logged_in_employee)
+        print(f"Current logged in user: {current_logged_in_employee}")
     
+        # Remove the session from session table in DB
         #select_session_from_db(DB_NAME, current_logged_in_employee. )
     
