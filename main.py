@@ -9,39 +9,48 @@ if __name__=="__main__":
     DB_NAME=os.getenv("DB_NAME")
     print(DB_NAME)
     
-
+    # Setup DB
     open_db(DB_NAME)
 
-    print("""
+    while True:
 
-        1. Login
-        2. Logout
-        3. Register
-        4. Execute task
-        5. Exit
+        # Clear terminal
+        os.system("cls")
 
-    Please enter your option:
+        print("""
 
-    """)
-    user_input = input(">>: ")
+            1. Login
+            2. Logout
+            3. Register
+            4. Execute task
+            5. Exit
 
-    if user_input == '1':
-        login()
+        Please enter your option:
 
-    elif user_input == '2':
-        logout()
+        """)
+        user_input = input(">>: ")
 
-    elif user_input == '3':
-        register()
+        if user_input == '1':
+            login()
+            user_input = input("Press any key to continue... ")
 
-    elif user_input == '4': 
-        # This function will prompt user for login information before running
-        some_secure_function()
+        elif user_input == '2':
+            logout()
+            user_input = input("Press any key to continue... ")
 
-    elif user_input == '5':
-        print("Exiting...")
-        exit()
+        elif user_input == '3':
+            register()
+            user_input = input("Press any key to continue... ")
 
-    else:
-        print("Invalid option selected.")
+        elif user_input == '4': 
+            # This function will prompt user for login information before running
+            some_secure_function()
+            user_input = input("Press any key to continue... ")
 
+        elif user_input == '5':
+            print("Exiting...")
+            exit()
+
+        else:
+            print("Invalid option selected.")
+            user_input = input("Press any key to continue... ")
