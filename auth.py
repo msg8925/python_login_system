@@ -57,6 +57,8 @@ def login():
 
 def register():
 
+    # TODO - need to check if user is logged out before registering
+
     firstname = input("Please enter your firstname: ")
     lastname = input("Please enter your lastname: ")
     username = input("Please enter your username: ")

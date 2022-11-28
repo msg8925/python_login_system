@@ -22,13 +22,13 @@ Please enter your option:
 user_input = input(">>: ")
 
 if user_input == '1':
-    pass
+    login()
 
 elif user_input == '2':
     logout()
 
 elif user_input == '3':
-    pass
+    register()
 
 else: 
     # This function will prompt user for login information before running
