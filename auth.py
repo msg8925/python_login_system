@@ -2,7 +2,9 @@ from db_funcs import open_db, insert_into_db, select_from_db, insert_session_int
 from auth_funcs import set_current_logged_in_employee, get_current_logged_in_employee 
 from models import Employee
 import bcrypt
+from pickleEmployee import pickle_object, unpickle_string
 from getpass import getpass
+
 
 DB_NAME="company.db"
 current_logged_in_employee = 0
@@ -42,7 +44,8 @@ def login():
 
                 print(f"Session created for user: {current_logged_in_employee.username}.")     
 
-                set_current_logged_in_employee(current_logged_in_employee)    
+                # Pickle the employee object and then store in it a file 
+                set_current_logged_in_employee(pickle_object(current_logged_in_employee))    
 
                 print("Successfully logged in.")
                 return 0
@@ -93,6 +96,11 @@ def logout():
     
     # Check the session exists
     employee = get_current_logged_in_employee()
-    print(employee)
-    #select_session_from_db(DB_NAME, current_logged_in_employee. )
+    if not employee:
+        print("No user is logged in.")
+    else:
+        current_logged_in_employee = unpickle_string(employee)      
+        print(current_logged_in_employee)
+    
+        #select_session_from_db(DB_NAME, current_logged_in_employee. )
     
