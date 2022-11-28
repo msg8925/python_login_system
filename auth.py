@@ -4,9 +4,10 @@ from models import Employee
 import bcrypt
 #from pickleEmployee import pickle_object, unpickle_string
 from getpass import getpass
+import os
 
 # Need to as env var here
-DB_NAME="company.db"
+DB_NAME=os.getenv("DB_NAME")
 current_logged_in_employee = 0
 
 def login():
