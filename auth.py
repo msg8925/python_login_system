@@ -112,6 +112,9 @@ def logout():
         delete_session_from_db(DB_NAME, current_logged_in_employee_id)
         print("Employee successfully logged out.")
 
+        # Remove the user from the .pkl file 
+        current_logged_in_employee = set_current_logged_in_employee(pickle_object(None))
+
         # Remove the session from session table in DB
         #select_session_from_db(DB_NAME, current_logged_in_employee. )
     
