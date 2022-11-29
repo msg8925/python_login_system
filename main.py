@@ -1,4 +1,4 @@
-from db_funcs import open_db, insert_into_db, select_from_db
+from db_funcs import open_db
 from auth import login, register, logout 
 from tasks import some_secure_function 
 import os
@@ -6,7 +6,8 @@ import os
 if __name__=="__main__":
 
     # Get DB info from dotenv file 
-    DB_NAME=os.getenv("DB_NAME")
+    #DB_NAME=os.getenv("DB_NAME")
+    DB_NAME="company.db"
     print(DB_NAME)
     
     # Setup DB

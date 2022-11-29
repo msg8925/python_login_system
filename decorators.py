@@ -1,5 +1,11 @@
 from auth import login, register
 
+####################################################
+#
+#   Desc: 
+#
+#
+####################################################
 def login_required(original_function):
     
     # This code is run before original functions

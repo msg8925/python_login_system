@@ -1,6 +1,10 @@
+####################################################
+#
+#   Desc: 
+#
+#
+####################################################
 class Employee:
-
-    
 
     def __init__(self, firstname, lastname, username, password, salary):
         self.id = None
