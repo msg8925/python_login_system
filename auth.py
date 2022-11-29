@@ -2,16 +2,12 @@ from db_funcs import insert_into_db, select_from_db, insert_session_into_db, sel
 from auth_funcs import set_current_logged_in_employee, get_current_logged_in_employee 
 from models import Employee
 import bcrypt
-#from pickleEmployee import pickle_object, unpickle_string
 from getpass import getpass
 import os
 
 
 #DB_NAME=os.getenv("DB_NAME")
 DB_NAME="company.db"
-
-# maybe I can delete this
-current_logged_in_employee = 0
 
 
 ####################################################
@@ -132,6 +128,8 @@ def register():
 
                 # TODO - insert this into a log file 
                 # print(f"Employee id: {employee.get_employee_id()}")
+
+                print("Registration successful. You can now log in.")
 
                 return 0
 

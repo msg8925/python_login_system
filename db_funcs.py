@@ -1,6 +1,12 @@
 from classes import DB_context_manager
 
-# Create table 
+
+####################################################
+#
+#   Desc: Create table  
+#
+#
+####################################################
 def open_db(DB_NAME):
 
     with DB_context_manager(DB_NAME) as c:
@@ -30,7 +36,12 @@ def open_db(DB_NAME):
     return 0
 
 
-# Insert employee into DB
+####################################################
+#
+#   Desc: Insert employee into DB
+#
+#
+####################################################
 def insert_into_db(DB_NAME, employee):
     
     with DB_context_manager(DB_NAME) as c:
@@ -39,7 +50,12 @@ def insert_into_db(DB_NAME, employee):
     return 0
 
 
-# Select an employee from DB
+####################################################
+#
+#   Desc: select employee from DB
+#
+#
+####################################################
 def select_from_db(DB_NAME, username):
     
     with DB_context_manager(DB_NAME) as c:
@@ -49,7 +65,12 @@ def select_from_db(DB_NAME, username):
     return employee
 
 
-# Select an employee from DB
+####################################################
+#
+#   Desc: Select a session from DB
+#
+#
+####################################################
 def select_session_from_db(DB_NAME, employee_id):
     
     with DB_context_manager(DB_NAME) as c:
@@ -59,7 +80,12 @@ def select_session_from_db(DB_NAME, employee_id):
     return session
 
 
-# Insert employee into DB
+####################################################
+#
+#   Desc: Insert session into DB
+#
+#
+####################################################
 def insert_session_into_db(DB_NAME, employee_id):
     
     with DB_context_manager(DB_NAME) as c:
@@ -68,7 +94,12 @@ def insert_session_into_db(DB_NAME, employee_id):
     return 0    
 
 
-# Delete a session
+####################################################
+#
+#   Desc: Delete a session from DB
+#
+#
+####################################################
 def delete_session_from_db(DB_NAME, employee_id):
 
     with DB_context_manager(DB_NAME) as c:
