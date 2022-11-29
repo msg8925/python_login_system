@@ -115,11 +115,12 @@ def register():
                 print("Passwords do not match.")
                 return 2
 
+            # If the two passwords match
             else:
                 # Hash the password that was supplied by the user
                 hashed_password = bcrypt.hashpw(password_1.encode(), bcrypt.gensalt())
         
-                # Create an 'Employee' object
+                # Create an 'Employee' object and fill it with the info provided by the user 
                 employee = Employee(firstname, lastname, username, hashed_password, 20000)     
                 
                 # Insert the employee into the DB
@@ -130,45 +131,40 @@ def register():
                 employee.set_employee_id(employee_with_id[0])
 
                 # TODO - insert this into a log file 
-                print(f"Employee id: {employee.get_employee_id()}")
+                # print(f"Employee id: {employee.get_employee_id()}")
 
                 return 0
 
 
 ####################################################
 #
-#   Desc: 
+#   Desc: Log out a user
 #
 #
 ####################################################
 def logout():
     
-    # Check the session exists
-
-    # TODO - Need to merge pickle functions into get_current_logged_in_employee 
+    # Check if the user is logged in 
     current_logged_in_employee = get_current_logged_in_employee()
-    #current_logged_in_employee = unpickle_string(current_logged_in_employee)
-    #print(f"CLIE: {current_logged_in_employee}")
+
+    # If the user is not logged in
     if current_logged_in_employee == None:
         print("No user is logged in.")
         return 0
-    else:
-        # Unpickle the serialized employee  
-        # current_logged_in_employee = unpickle_string(current_logged_in_employee)      
-        print(f"Current logged in user: {current_logged_in_employee}")
     
-        # Get the employees id
+    # If the user is logged in
+    else:      
+        # Get the currently logged in employee's id
         current_logged_in_employee_id = current_logged_in_employee.get_employee_id()
 
         # Remove the employee's session from the session table  
         delete_session_from_db(DB_NAME, current_logged_in_employee_id)
+        
+        # Inform the user that the logout has been successful
         print("Employee successfully logged out.")
 
         # Remove the user from the .pkl file 
         current_logged_in_employee = set_current_logged_in_employee(None)
-
-        # Remove the session from session table in DB
-        #select_session_from_db(DB_NAME, current_logged_in_employee. )
 
         return 0
     
